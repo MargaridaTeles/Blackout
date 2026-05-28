@@ -69,7 +69,6 @@ namespace Blackout
             {
                 view.UpdateGrid(grid, selectedRow, selectedCol);
                 view.ShowMoveCount(moveCount);
-                view.ShowHighScore();
                 HandleInput(view.ReadInputPlayer());
             }
         }
@@ -136,6 +135,7 @@ namespace Blackout
             {
                 case "1 - Easy (3x3)":
                     size = 3;
+                    view.ShowHighScoreForLevel(size);
                     break;
                 case "2 - Medium (5x5)":
                     size = 5;

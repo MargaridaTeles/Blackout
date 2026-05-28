@@ -227,11 +227,11 @@ namespace Blackout.View
         /// Display High Score for specific Level
         /// </summary>
         /// <param name="moveCount"></param>
-        public void ShowHighScore()
+        public void ShowHighScoreForLevel(int currentLevel)
         {
             AnsiConsole.Write(
-                new Panel($"{LoadBestScore()}")
-                    .Header("[bold blue]High Score[/]")
+                new Panel($"{LoadBestScore(ConvertLevel(currentLevel))}")
+                    .Header("[bold blue]High Score:[/]")
                     .Border(BoxBorder.Double)
                     .Padding(6, 1)
             );
@@ -264,15 +264,14 @@ namespace Blackout.View
         /// <summary>
         /// Save high scores for different Levels
         /// </summary>
-        public void SaveBestScore(int moveCount, int size)
+        public void SaveBestScore(int moveCount, int currentLevel)
         {
-            string level = ConvertLevel(size);
-            int bestScore = LoadBestScore();
-            string s;
+            string level = ConvertLevel(currentLevel);
+            int bestScore = LoadBestScore(level);
 
             if (moveCount < bestScore)
             {
-                string content = $"{level}: {moveCount.ToString()}";
+                string content = $"{level} {moveCount.ToString()}";
 
                 using StreamWriter sw = new StreamWriter("HighScores.txt");
                 sw.WriteLine(content);
@@ -283,24 +282,21 @@ namespace Blackout.View
         /// Load Best Scores
         /// </summary>
         /// <returns>High Score for the specific level</returns>
-        private int LoadBestScore()
+        public int LoadBestScore(string currentLevel)
         {
             using StreamReader sr = new StreamReader("HighScores.txt");
             string s;
-            //string content = File.ReadAllText("HighScores.txt");
+            int movement = 0;
 
             while((s = sr.ReadLine()) != null)
             {
                 string[] parts = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             
                 string level = parts[0];
-                int movements = int.Parse(parts[1]);
-
-                if (int.TryParse(s, out int bestScore))
-                    return bestScore;
+                movement = int.Parse(parts[1]);
             }
 
-            return int.MaxValue;
+            return movement;
         }
 
     }
