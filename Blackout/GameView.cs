@@ -227,7 +227,7 @@ namespace Blackout.View
         /// Display High Score for specific Level
         /// </summary>
         /// <param name="moveCount"></param>
-        public void ShowHighScore(int moveCount, string level)
+        public void ShowHighScore(int moveCount)
         {
             AnsiConsole.Write(
                 new Panel($"{LoadBestScore()}")

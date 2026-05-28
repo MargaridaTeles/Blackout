@@ -86,6 +86,7 @@ namespace Blackout
 
                 view.UpdateGrid(grid, selectedRow, selectedCol);
                 view.ShowVictory(moveCount);
+                view.ShowHighScore(moveCount);
             }
             else
                 view.ShowExitMessage();
@@ -142,7 +143,6 @@ namespace Blackout
                     size = 8;
                     break;
             }
-            view.ShowHighScore(moveCount, view.ConvertLevel(size));
 
             return size;
         }
