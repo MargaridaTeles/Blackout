@@ -226,7 +226,7 @@ namespace Blackout.View
         /// <summary>
         /// Display High Score for specific Level
         /// </summary>
-        /// <param name="moveCount"></param>
+        /// <param name="moveCount">Count movements</param>
         public void ShowHighScore(int moveCount)
         {
             AnsiConsole.Write(
