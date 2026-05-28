@@ -227,22 +227,17 @@ namespace Blackout.View
         /// Display High Score for specific Level
         /// </summary>
         /// <param name="moveCount"></param>
-        public void ShowHighScoreForLevel(int currentLevel)
+        public void ShowHighScore(int moveCount, string level)
         {
             AnsiConsole.Write(
-                new Panel($"{LoadBestScore(ConvertLevel(currentLevel))}")
-                    .Header("[bold blue]High Score:[/]")
+                new Panel($"{LoadBestScore()}")
+                    .Header("[bold blue]High Score[/]")
                     .Border(BoxBorder.Double)
                     .Padding(6, 1)
             );
         }
 
-        /// <summary>
-        /// Convert size of grid to a Difficult Level
-        /// </summary>
-        /// <param name="size">The size of grid</param>
-        /// <returns>Difficult name</returns>
-        private string ConvertLevel(int size)
+        public string ConvertLevel(int size)
         {
             string difficult = "";
             switch (size)
@@ -264,14 +259,14 @@ namespace Blackout.View
         /// <summary>
         /// Save high scores for different Levels
         /// </summary>
-        public void SaveBestScore(int moveCount, int currentLevel)
+        public void SaveBestScore(int moveCount, int size)
         {
-            string level = ConvertLevel(currentLevel);
-            int bestScore = LoadBestScore(level);
+            string level = ConvertLevel(size);
+            int bestScore = LoadBestScore();
 
             if (moveCount < bestScore)
             {
-                string content = $"{level} {moveCount.ToString()}";
+                string content = $"{level}: {moveCount.ToString()}";
 
                 using StreamWriter sw = new StreamWriter("HighScores.txt");
                 sw.WriteLine(content);
@@ -282,21 +277,21 @@ namespace Blackout.View
         /// Load Best Scores
         /// </summary>
         /// <returns>High Score for the specific level</returns>
-        public int LoadBestScore(string currentLevel)
+        private int LoadBestScore()
         {
-            using StreamReader sr = new StreamReader("HighScores.txt");
             string s;
-            int movement = 0;
+            using StreamReader sr = new StreamReader("HighScores.txt");
+            int movements = 0;
 
             while((s = sr.ReadLine()) != null)
             {
                 string[] parts = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             
                 string level = parts[0];
-                movement = int.Parse(parts[1]);
+                movements = int.Parse(parts[1]);
             }
 
-            return movement;
+            return movements;
         }
 
     }

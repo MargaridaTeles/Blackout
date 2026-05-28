@@ -86,7 +86,6 @@ namespace Blackout
 
                 view.UpdateGrid(grid, selectedRow, selectedCol);
                 view.ShowVictory(moveCount);
-                view.SaveBestScore(moveCount, size);
             }
             else
                 view.ShowExitMessage();
@@ -135,7 +134,6 @@ namespace Blackout
             {
                 case "1 - Easy (3x3)":
                     size = 3;
-                    view.ShowHighScoreForLevel(size);
                     break;
                 case "2 - Medium (5x5)":
                     size = 5;
@@ -144,6 +142,7 @@ namespace Blackout
                     size = 8;
                     break;
             }
+            view.ShowHighScore(moveCount, view.ConvertLevel(size));
 
             return size;
         }
