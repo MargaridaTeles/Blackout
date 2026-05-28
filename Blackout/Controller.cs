@@ -69,6 +69,7 @@ namespace Blackout
             {
                 view.UpdateGrid(grid, selectedRow, selectedCol);
                 view.ShowMoveCount(moveCount);
+                view.ShowHighScore();
                 HandleInput(view.ReadInputPlayer());
             }
         }
@@ -86,6 +87,7 @@ namespace Blackout
 
                 view.UpdateGrid(grid, selectedRow, selectedCol);
                 view.ShowVictory(moveCount);
+                view.SaveBestScore(moveCount, size);
             }
             else
                 view.ShowExitMessage();

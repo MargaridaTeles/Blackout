@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Threading;
 using Spectre.Console;
 
@@ -221,5 +222,81 @@ namespace Blackout.View
                     .Padding(2, 1)
             );
         }
+
+        /// <summary>
+        /// Display High Score for specific Level
+        /// </summary>
+        /// <param name="moveCount"></param>
+        public void ShowHighScore()
+        {
+            AnsiConsole.Write(
+                new Panel($"{LoadBestScore()}")
+                    .Header("[bold blue]High Score[/]")
+                    .Border(BoxBorder.Double)
+                    .Padding(6, 1)
+            );
+        }
+
+        private string ConvertLevel(int size)
+        {
+            string difficult = "";
+            switch (size)
+            {
+                case 3:
+                    difficult = "Fácil";
+                    break;
+                case 5:
+                    difficult = "Médio";
+                    break;
+                case 8:
+                    difficult = "Difícil";
+                    break;
+            };
+
+            return difficult;
+        }
+
+        /// <summary>
+        /// Save high scores for different Levels
+        /// </summary>
+        public void SaveBestScore(int moveCount, int size)
+        {
+            string level = ConvertLevel(size);
+            int bestScore = LoadBestScore();
+            string s;
+
+            if (moveCount < bestScore)
+            {
+                string content = $"{level}: {moveCount.ToString()}";
+
+                using StreamWriter sw = new StreamWriter("HighScores.txt");
+                sw.WriteLine(content);
+            }
+        }
+
+        /// <summary>
+        /// Load Best Scores
+        /// </summary>
+        /// <returns>High Score for the specific level</returns>
+        private int LoadBestScore()
+        {
+            string s;
+            using StreamReader sr = new StreamReader("HighScores.txt");
+            //string content = File.ReadAllText("HighScores.txt");
+
+            while((s = sr.ReadLine()) != null)
+            {
+                string[] parts = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            
+                string level = parts[0];
+                int movements = int.Parse(parts[1]);
+
+                /*if (int.TryParse(movements, out int bestScore))
+                    return bestScore;*/
+            }
+
+            return int.MaxValue;
+        }
+
     }
 }
