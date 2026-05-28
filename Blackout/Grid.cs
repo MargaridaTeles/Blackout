@@ -76,6 +76,12 @@ namespace Blackout
             Toggle(row + 1, column); // DOWN
             Toggle(row, column - 1); // LEFT
             Toggle(row, column + 1); // RIGHT
+
+            // Toggle diagonal
+            Toggle(row + 1, column + 1); // RIGHT DOWN
+            Toggle(row + 1, column - 1); // LEFT DOWN
+            Toggle(row - 1, column + 1); // RIGHT UP
+            Toggle(row - 1, column - 1); // LEFT UP
         }
 
         /// <summary>
