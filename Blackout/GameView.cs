@@ -237,6 +237,11 @@ namespace Blackout.View
             );
         }
 
+        /// <summary>
+        /// Convert size of grid to a Difficult Level
+        /// </summary>
+        /// <param name="size">The size of grid</param>
+        /// <returns>Difficult name</returns>
         private string ConvertLevel(int size)
         {
             string difficult = "";
