@@ -280,8 +280,8 @@ namespace Blackout.View
         /// <returns>High Score for the specific level</returns>
         private int LoadBestScore()
         {
-            string s;
             using StreamReader sr = new StreamReader("HighScores.txt");
+            string s;
             //string content = File.ReadAllText("HighScores.txt");
 
             while((s = sr.ReadLine()) != null)
@@ -291,8 +291,8 @@ namespace Blackout.View
                 string level = parts[0];
                 int movements = int.Parse(parts[1]);
 
-                /*if (int.TryParse(movements, out int bestScore))
-                    return bestScore;*/
+                if (int.TryParse(s, out int bestScore))
+                    return bestScore;
             }
 
             return int.MaxValue;
